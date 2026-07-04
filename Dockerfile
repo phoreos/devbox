@@ -19,3 +19,8 @@ RUN curl -sSL https://github.com/typst/typst/releases/latest/download/typst-x86_
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null && dnf check-update && dnf install -y code
+
+RUN ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/docker \
+    ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/flatpak \
+    ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/podman \
+    ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/xdg-open
