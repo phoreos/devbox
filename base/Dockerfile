@@ -1,6 +1,8 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
+ARG TARGET_ENV
+
 RUN dnf upgrade -y && dnf install -y \
     @development-tools \
     texlive-scheme-full \
