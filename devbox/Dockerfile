@@ -1,4 +1,4 @@
-FROM quay.io/fedora/fedora-toolbox:44
+FROM ghcr.io/phoreos/devbox-base:latest
 
 ENV RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
@@ -9,14 +9,12 @@ ENV GHCUP_INSTALL_BASE_PREFIX=/usr/local \
     PATH=/usr/local/.ghcup/bin:/usr/local/cabal/bin:$PATH
 
 RUN dnf upgrade -y && dnf install -y \
-    @development-tools \
     fish \
     golang \
     nodejs \
     uv \
     java-latest-openjdk \
     Agda Agda-stdlib \
-    texlive-scheme-full \
     && dnf clean all
 
 RUN curl -sSL https://github.com/typst/typst/releases/latest/download/typst-x86_64-unknown-linux-musl.tar.xz -o /tmp/typst.tar.xz \
