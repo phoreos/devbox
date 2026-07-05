@@ -1,6 +1,12 @@
-FROM quay.io/fedora/fedora-toolbox:44
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
 
 RUN dnf upgrade -y && dnf install -y \
     @development-tools \
     texlive-scheme-full \
     && dnf clean all
+
+RUN if [ "$TARGET_ENV" = "distrobox" ]; then \
+    elif [ "$TARGET_ENV" = "vm" ]; then \
+        dnf install -y open-vm-tools virtualbox-guest-additions; \
+    fi

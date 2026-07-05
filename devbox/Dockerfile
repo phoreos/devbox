@@ -1,4 +1,6 @@
-FROM ghcr.io/phoreos/devbox-base:latest
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+#FROM ghcr.io/phoreos/devbox-base:latest
 
 ENV RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
