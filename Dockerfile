@@ -22,7 +22,7 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && echo -e "[
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | BOOTSTRAP_HASKELL_NONINTERACTIVE=1 BOOTSTRAP_HASKELL_MINIMAL=1 sh
 
-RUN ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/docker \
-    ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/flatpak \
-    ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/podman \
+RUN ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/docker && \
+    ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/flatpak && \
+    ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/podman && \
     ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/xdg-open
