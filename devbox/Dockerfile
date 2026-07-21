@@ -1,5 +1,5 @@
-ARG BASE_IMAGE FROM ${BASE_IMAGE}
-#FROM ghcr.io/phoreos/devbox-base:latest
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
 
 ENV RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
@@ -35,9 +35,12 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && echo -e "[
 RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | BOOTSTRAP_HASKELL_NONINTERACTIVE=1 BOOTSTRAP_HASKELL_MINIMAL=1 BOOTSTRAP_HASKELL_ADJUST_BASHRC=0 sh && \
     chmod -R a+w /usr/local/.ghcup
 
-RUN curl -Lo /etc/yum.repos.d/atim.repo \
-  https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-$(rpm -E %fedora)/atim-starship-fedora-$(rpm -E %fedora).repo && \
+RUN curl -Lo /etc/yum.repos.d/atim-starship.repo \
+    https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-$(rpm -E %fedora)/atim-starship-fedora-$(rpm -E %fedora).repo && \
     dnf install -y starship
+
+RUN dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release && \
+    dnf install -y zed
 
 RUN ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/docker && \
     ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/flatpak && \
