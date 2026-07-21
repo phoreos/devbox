@@ -1,5 +1,4 @@
-ARG BASE_IMAGE
-FROM ${BASE_IMAGE}
+ARG BASE_IMAGE FROM ${BASE_IMAGE}
 #FROM ghcr.io/phoreos/devbox-base:latest
 
 ENV RUSTUP_HOME=/usr/local/rustup \
@@ -36,7 +35,8 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && echo -e "[
 RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | BOOTSTRAP_HASKELL_NONINTERACTIVE=1 BOOTSTRAP_HASKELL_MINIMAL=1 BOOTSTRAP_HASKELL_ADJUST_BASHRC=0 sh && \
     chmod -R a+w /usr/local/.ghcup
 
-RUN dnf copr enable atim/starship && \
+RUN curl -Lo /etc/yum.repos.d/atim.repo \
+  https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-$(rpm -E %fedora)/atim-starship-fedora-$(rpm -E %fedora).repo && \
     dnf install -y starship
 
 RUN ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/docker && \
